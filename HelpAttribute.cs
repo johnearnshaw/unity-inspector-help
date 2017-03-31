@@ -105,9 +105,9 @@ public class HelpDrawer : PropertyDrawer
 
         var height = style.CalcHeight(content, EditorGUIUtility.currentViewWidth);
 
-        // We add the padding here to make sure the text is not overflowing the HelpBox from the top
+        // We add tiny padding here to make sure the text is not overflowing the HelpBox from the top
         // and bottom.
-        height += paddingHeight * 2;
+        height += marginHeight * 2;
 
         // Since we draw a custom text area with the label above if our property contains the
         // MultilineAttribute, we need to add some extra height to compensate. This is stored in a
