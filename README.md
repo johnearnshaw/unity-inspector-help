@@ -39,9 +39,13 @@ The message icon can be set using the second (optional) parameter in the `[HelpA
 `UnityEditor.MessageType.None`
 `UnityEditor.MessageType.Warning`
 
+ If this second parameter is used, wrap the `[HelpAttribute]` in an `#if UNITY_EDITOR` to ensure no errors when building to your chosen platform.
+
 ```c#
 [SerializeField]
+#if UNITY_EDITOR
 [Help("This is some help text!", UnityEditor.MessageType.None)]
+#endif
 float inspectorField = 1440f;
 ```
 

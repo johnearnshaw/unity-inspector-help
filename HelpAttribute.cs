@@ -25,26 +25,37 @@
 // --------------------------------------------------------------------------------------------------------------------
 using System;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [AttributeUsage(AttributeTargets.Field, Inherited = true)]
 public class HelpAttribute : PropertyAttribute
 {
     public readonly string text;
+#if UNITY_EDITOR
     public readonly MessageType type;
+#endif
 
     /// <summary>
     /// Adds a HelpBox to the Unity property inspector above this field.
     /// </summary>
     /// <param name="text">The help text to be displayed in the HelpBox.</param>
     /// <param name="type">The icon to be displayed in the HelpBox.</param>
-    public HelpAttribute(string text, MessageType type = MessageType.Info)
+    public HelpAttribute(string text
+#if UNITY_EDITOR
+, MessageType type = MessageType.Info
+#endif
+)
     {
         this.text = text;
+#if UNITY_EDITOR
         this.type = type;
+#endif
     }
 }
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(HelpAttribute))]
 public class HelpDrawer : PropertyDrawer
 {
@@ -153,7 +164,7 @@ public class HelpDrawer : PropertyDrawer
         // If we have a RangeAttribute on our field, we need to handle the PropertyDrawer differently to
         // keep the same style as Unity's default.
         var range = rangeAttribute;
-        
+
         if (range != null)
         {
             if (prop.propertyType == SerializedPropertyType.Float)
@@ -207,3 +218,4 @@ public class HelpDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 }
+#endif
