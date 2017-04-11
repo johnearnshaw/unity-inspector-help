@@ -11,9 +11,9 @@ Unity has these awesome little info boxes you may see popping up in the IDE, the
 
 ![Alt text](/screenshots/ss-unity-inspector-2.png?raw=true)
 
-I thought it would be nice for the Unity guys to make it publicly available to use as an `Attribute`. I couldn't find it anywhere so I rolled my own for personal use and I'm releasing it under MIT licence. Feel free to use it in your projects commercial or non-commercial. Using this little helper class you can apply help text or other important information to any property or field made visible in the Unity inspector from inside your `UnityBehavior` class.
+I thought it would be nice for the Unity guys to make it publicly available to use as an `Attribute`. I couldn't find it anywhere so I rolled my own for personal use and I'm releasing it under MIT license. Feel free to use it in your projects commercial or non-commercial. Using this little helper class you can apply help text or other important information to any property or field made visible in the Unity inspector from inside your `UnityBehavior` class.
 
-The benifit of using the standard Unity info box from Attribute is that it makes it clear to the IDE user if any instructions are to be followed and is the ultimate addition or alternative to tooltip, which can be easily overlooked when configuring inspector properties. Since it uses EditorGUI.HelpBox, it keeps your inspector looking simple and fits in with the standard unity UI design. Using this custom `PropertyAttribute` along with the built in `[Space(#)]` or `[SpaceAttribute(#)]` and `[Header($$)]` or `[HeaderAttribute($$)]` allows you to create a nice layout, with detailed developer/user notes, for the Unity property window within your `UnityBehavior` scripts.
+The benefit of using the standard Unity info box from Attribute is that it makes it clear to the IDE user if any instructions are to be followed and is the ultimate addition or alternative to tooltip, which can be easily overlooked when configuring inspector properties. Since it uses EditorGUI.HelpBox, it keeps your inspector looking simple and fits in with the standard unity UI design. Using this custom `PropertyAttribute` along with the built in `[Space(#)]` or `[SpaceAttribute(#)]` and `[Header($$)]` or `[HeaderAttribute($$)]` allows you to create a nice layout, with detailed developer/user notes, for the Unity property window within your `UnityBehavior` scripts.
 
 ## Installation
 
@@ -39,9 +39,13 @@ The message icon can be set using the second (optional) parameter in the `[HelpA
 `UnityEditor.MessageType.None`
 `UnityEditor.MessageType.Warning`
 
+ If this second parameter is used, wrap the `[HelpAttribute]` in an `#if UNITY_EDITOR` to ensure no errors when building to your chosen platform.
+
 ```c#
 [SerializeField]
+#if UNITY_EDITOR
 [Help("This is some help text!", UnityEditor.MessageType.None)]
+#endif
 float inspectorField = 1440f;
 ```
 
@@ -60,9 +64,9 @@ As with other custom, and even some built in `PropertyAttributes`, there are con
 4. Most primitives should display correctly but some will require reimplementation in the `[HelpAttribute]` `PropertyDrawer`. It's likely that other custom `PropertyDrawer` will conflict.
 
 
-## Colaboration
+## Collaboration
 
-Please feel free to fork and push back if you make any changes which would benifit the community:
+Please feel free to fork and push back if you make any changes which would benefit the community:
 
 1. Fork the target repo to your own account.
 2. Clone the repo to your local machine.
